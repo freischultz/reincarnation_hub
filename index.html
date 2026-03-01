@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reincarnation - Official Updates</title>
+    <meta name="description" content="View the latest hero and gear balance patches.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Noto+Sans:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-accent: #40c4ff;
+            --bg-color: #0b101a;
+            --nav-bg: rgba(11, 16, 26, 0.75);
+            --text-color: #ffffff;
+            --text-muted: #a1a9b4;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Noto Sans', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            box-sizing: border-box;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo span {
+            color: var(--primary-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #e0e5ed;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 25px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background:
+                radial-gradient(circle at center, #1b263b 0%, #0b101a 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 30% 30%, rgba(64, 196, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-inline: auto;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 50px;
+            background-color: #fff;
+            color: #000;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #fff;
+            gap: 10px;
+        }
+
+        .hero-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* News / Content Section */
+        .section-padding {
+            padding: 100px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #0b101a;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-accent);
+            margin: 0 auto;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .news-card {
+            background: rgba(25, 30, 40, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 320px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .news-card-image {
+            height: 180px;
+            background-color: #121824;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s ease;
+        }
+
+        .news-card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+        }
+
+        .news-card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .news-date {
+            font-size: 0.9rem;
+            color: var(--primary-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .news-card-arrow {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(64, 196, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(64, 196, 255, 0.1);
+        }
+
+        .news-card:hover .news-card-image {
+            background-color: #1a2333;
+            transform: scale(1.02);
+        }
+
+        .news-card:hover .news-card-arrow {
+            color: var(--primary-accent);
+            transform: translateX(5px);
+        }
+
+        /* Ambient particles */
+        .particle {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.5;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(10vw);
+                opacity: 0;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 0;
+            text-align: center;
+            background: #06090e;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#" class="nav-logo">REINCAR<span>NATION</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="news.html" class="nav-link">News</a>
+            <a href="index.html#info" class="nav-link">Game Info</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <!-- Floating Particles -->
+        <div class="particle"
+            style="width: 3px; height: 3px; left: 15%; top: 80%; animation-duration: 15s; animation-delay: 2s;"></div>
+        <div class="particle"
+            style="width: 4px; height: 4px; left: 35%; top: 90%; animation-duration: 25s; animation-delay: 0s;"></div>
+        <div class="particle"
+            style="width: 2px; height: 2px; left: 55%; top: 85%; animation-duration: 12s; animation-delay: 4s;"></div>
+        <div class="particle"
+            style="width: 5px; height: 5px; left: 75%; top: 95%; animation-duration: 20s; animation-delay: 1s;"></div>
+        <div class="particle"
+            style="width: 3px; height: 3px; left: 85%; top: 70%; animation-duration: 18s; animation-delay: 3s;"></div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">Fight For All<br>That Is Beautiful</h1>
+            <p class="hero-subtitle">Dive into the definitive Reincarnation experience. Explore the latest combat
+                records,
+                balance adjustments, and definitive character database updates.</p>
+            <a href="news.html" class="hero-btn">Explore Patches ➔</a>
+        </div>
+    </div>
+
+    <!-- News Section -->
+    <div class="section-padding" id="news">
+        <div class="section-header">
+            <h2 class="section-title">Latest Updates</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="news-grid">
+            <a href="event_v2.html" class="news-card">
+                <div class="news-card-image">🎉</div>
+                <div class="news-card-content">
+                    <div class="news-date">Event · 2026-02-27</div>
+                    <div class="news-title">Event | Awakening of Spring</div>
+                    <div class="news-card-arrow">➔</div>
+                </div>
+            </a>
+            <a href="event_v1.html" class="news-card">
+                <div class="news-card-image">🎉</div>
+                <div class="news-card-content">
+                    <div class="news-date">Event · 2026-03-01</div>
+                    <div class="news-title">Event | Treasure Capsule</div>
+                    <div class="news-card-arrow">➔</div>
+                </div>
+            </a>
+            <a href="patch_v2.html" class="news-card">
+                <div class="news-card-image">⚙️</div>
+                <div class="news-card-content">
+                    <div class="news-date">Update · 2026-03-01</div>
+                    <div class="news-title">Patch Notes | March 1st</div>
+                    <div class="news-card-arrow">➔</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer" id="info">
+        <p>&copy; 2026 Reincarnation Hub. All system rights retained.</p>
+    </div>
+</body>
+
+</html>

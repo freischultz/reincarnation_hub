@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reincarnation - News & Announcements</title>
+    <meta name="description" content="View the latest hero and gear balance patches.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Noto+Sans:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-accent: #40c4ff;
+            --bg-color: #0b101a;
+            --nav-bg: rgba(11, 16, 26, 0.75);
+            --text-color: #ffffff;
+            --text-muted: #a1a9b4;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Noto Sans', sans-serif;
+            --table-border: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at 30% 30%, rgba(64, 196, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at center, #1b263b 0%, #0b101a 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            box-sizing: border-box;
+            z-index: 100;
+            border-bottom: 1px solid var(--table-border);
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo span {
+            color: var(--primary-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #e0e5ed;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 25px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Page Content */
+        .page-wrapper {
+            padding-top: 130px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .page-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0 0 15px 0;
+            color: #fff;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .title-divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-accent);
+            margin: 20px auto 0;
+        }
+
+        /* Board Container */
+        .board-container {
+            width: 90%;
+            max-width: 1100px;
+            background: rgba(15, 20, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--table-border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 80px;
+        }
+
+        /* Notice List */
+        .notice-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .notice-header {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--table-border);
+            padding: 18px 20px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            color: var(--primary-accent);
+        }
+
+        .notice-item {
+            display: flex;
+            align-items: center;
+            padding: 22px 20px;
+            border-bottom: 1px solid var(--table-border);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+
+        .notice-item:hover {
+            background: rgba(64, 196, 255, 0.08);
+            transform: scale(1.01);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-left: 3px solid var(--primary-accent);
+            border-right: 3px solid var(--primary-accent);
+        }
+
+        /* Adding pseudo element for smooth hover line */
+        .notice-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--primary-accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .notice-item:hover::before {
+            opacity: 1;
+        }
+
+        .col-id {
+            width: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .col-type {
+            width: 100px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .type-badge {
+            background-color: rgba(64, 196, 255, 0.15);
+            color: var(--primary-accent);
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(64, 196, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        .type-badge.event {
+            background-color: rgba(255, 99, 132, 0.15);
+            color: #ff6384;
+            border-color: rgba(255, 99, 132, 0.3);
+        }
+
+        .type-badge.notice {
+            background-color: rgba(255, 206, 86, 0.15);
+            color: #ffce56;
+            border-color: rgba(255, 206, 86, 0.3);
+        }
+
+        .col-title {
+            flex-grow: 1;
+            padding: 0 30px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.3s ease;
+        }
+
+        .notice-item:hover .col-title {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            font-weight: 700;
+        }
+
+        .col-date {
+            width: 120px;
+            text-align: right;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 10px;
+            background: rgba(11, 16, 26, 0.8);
+            border-top: 1px solid var(--table-border);
+        }
+
+        .page-btn {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--table-border);
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: var(--primary-accent);
+            color: #000;
+            border-color: var(--primary-accent);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 0;
+            text-align: center;
+            background: #06090e;
+            width: 100%;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Ambient particles */
+        .particle {
+            position: fixed;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.5;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(10vw);
+                opacity: 0;
+            }
+        }
+
+        /* Tabs */
+        .news-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .news-tab {
+            background: rgba(25, 30, 40, 0.6);
+            border: 1px solid var(--table-border);
+            color: var(--text-muted);
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .news-tab:hover {
+            color: #fff;
+            border-color: rgba(64, 196, 255, 0.3);
+            background: rgba(64, 196, 255, 0.1);
+        }
+
+        .news-tab.active {
+            color: #fff;
+            background: rgba(64, 196, 255, 0.2);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 15px rgba(64, 196, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating Particles -->
+    <div class="particle"
+        style="width: 3px; height: 3px; left: 15%; top: 80%; animation-duration: 15s; animation-delay: 2s;"></div>
+    <div class="particle"
+        style="width: 4px; height: 4px; left: 35%; top: 90%; animation-duration: 25s; animation-delay: 0s;"></div>
+    <div class="particle"
+        style="width: 2px; height: 2px; left: 55%; top: 85%; animation-duration: 12s; animation-delay: 4s;"></div>
+    <div class="particle"
+        style="width: 5px; height: 5px; left: 75%; top: 95%; animation-duration: 20s; animation-delay: 1s;"></div>
+    <div class="particle"
+        style="width: 3px; height: 3px; left: 85%; top: 70%; animation-duration: 18s; animation-delay: 3s;"></div>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html" class="nav-logo">REINCAR<span>NATION</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="news.html" class="nav-link active">News</a>
+            <a href="index.html#info" class="nav-link">Game Info</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="page-wrapper">
+        <div class="header-section">
+            <h1 class="page-title">News Log</h1>
+            <p class="page-subtitle">Archives and announcements from central command</p>
+            <div class="title-divider"></div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="news-tabs">
+            <button class="news-tab active" data-filter="All">All</button>
+            <button class="news-tab" data-filter="Notice">Notice</button>
+            <button class="news-tab" data-filter="Update">Update</button>
+            <button class="news-tab" data-filter="Event">Event</button>
+        </div>
+
+        <div class="board-container">
+            <div class="notice-header">
+                <div class="col-id">No.</div>
+                <div class="col-type">Category</div>
+                <div class="col-title">Subject</div>
+                <div class="col-date">Date</div>
+            </div>
+
+            <div class="notice-list">
+
+                <a href="event_v2.html" class="notice-item">
+                    <div class="col-id">7</div>
+                    <div class="col-type"><span class="type-badge event">Event</span></div>
+                    <div class="col-title">Event | Awakening of Spring</div>
+                    <div class="col-date">2026-02-27</div>
+                </a>
+
+                <a href="event_v1.html" class="notice-item">
+                    <div class="col-id">6</div>
+                    <div class="col-type"><span class="type-badge event">Event</span></div>
+                    <div class="col-title">Event | Treasure Capsule</div>
+                    <div class="col-date">2026-03-01</div>
+                </a>
+
+                <a href="patch_v2.html" class="notice-item">
+                    <div class="col-id">5</div>
+                    <div class="col-type"><span class="type-badge">Update</span></div>
+                    <div class="col-title">Patch Notes | March 1st</div>
+                    <div class="col-date">2026-03-01</div>
+                </a>
+
+                <a href="patch_v1.html" class="notice-item">
+                    <div class="col-id">4</div>
+                    <div class="col-type"><span class="type-badge">Update</span></div>
+                    <div class="col-title">Patch Notes | Labiata</div>
+                    <div class="col-date">2026-02-27</div>
+                </a>
+
+                <a href="february26.html" class="notice-item">
+                    <div class="col-id">3</div>
+                    <div class="col-type"><span class="type-badge">Update</span></div>
+                    <div class="col-title">Balance Notes | February</div>
+                    <div class="col-date">2026-02-27</div>
+                </a>
+
+                <a href="medals.html" class="notice-item">
+                    <div class="col-id">2</div>
+                    <div class="col-type"><span class="type-badge notice">Notice</span></div>
+                    <div class="col-title">Official Medals Database Initialization</div>
+                    <div class="col-date">2026-02-27</div>
+                </a>
+
+                <a href="january30.html" class="notice-item">
+                    <div class="col-id">1</div>
+                    <div class="col-type"><span class="type-badge">Update</span></div>
+                    <div class="col-title">Balance Notes | January</div>
+                    <div class="col-date">2026-01-30</div>
+                </a>
+            </div>
+
+            <!-- Fake Pagination for realistic feel -->
+            <div class="pagination">
+                <a href="#" class="page-btn">«</a>
+                <a href="#" class="page-btn active">1</a>
+                <a href="#" class="page-btn">»</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer" id="info">
+        <p>&copy; 2026 Reincarnation Hub. All system rights retained.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.news-tab');
+            const items = document.querySelectorAll('.notice-item');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // Filter items
+                    const filter = tab.getAttribute('data-filter');
+
+                    items.forEach(item => {
+                        if (filter === 'All') {
+                            item.style.display = 'flex';
+                        } else {
+                            const badge = item.querySelector('.col-type .type-badge');
+                            if (badge && badge.textContent.trim() === filter) {
+                                item.style.display = 'flex';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

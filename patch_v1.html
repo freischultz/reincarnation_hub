@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reincarnation - Reincarnation Update Log</title>
+    <meta name="description" content="View the full patch notes and announcements.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Noto+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-accent: #40c4ff;
+            --bg-color: #0b101a;
+            --nav-bg: rgba(11, 16, 26, 0.75);
+            --text-color: #ffffff;
+            --text-muted: #a1a9b4;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Noto Sans', sans-serif;
+            --table-border: rgba(255, 255, 255, 0.05);
+            --content-bg: rgba(25, 30, 40, 0.6);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at 30% 30%, rgba(64, 196, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at center, #1b263b 0%, #0b101a 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            box-sizing: border-box;
+            z-index: 100;
+            border-bottom: 1px solid var(--table-border);
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo span {
+            color: var(--primary-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #e0e5ed;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 25px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Page Content */
+        .page-wrapper {
+            padding-top: 130px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .notice-container {
+            width: 90%;
+            background: rgba(15, 20, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--table-border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 50px;
+        }
+
+        .notice-header {
+            padding: 30px 40px;
+            border-bottom: 2px solid var(--table-border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .type-badge {
+            background-color: rgba(64, 196, 255, 0.15);
+            color: var(--primary-accent);
+            padding: 6px 14px;
+            border-radius: 4px;
+            border: 1px solid rgba(64, 196, 255, 0.3);
+            text-transform: uppercase;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .type-badge.event {
+            background-color: rgba(255, 99, 132, 0.15);
+            color: #ff6384;
+            border-color: rgba(255, 99, 132, 0.3);
+        }
+
+        .type-badge.notice {
+            background-color: rgba(255, 206, 86, 0.15);
+            color: #ffce56;
+            border-color: rgba(255, 206, 86, 0.3);
+        }
+
+        .notice-date {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .notice-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+            line-height: 1.3;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        /* The Custom Written Content */
+        .notice-body {
+            padding: 40px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+            background: var(--content-bg);
+            min-height: 400px;
+        }
+
+        .notice-body h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+            margin-top: 40px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .notice-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .notice-body h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: #fff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .notice-body p {
+            margin-bottom: 20px;
+        }
+
+        .notice-body img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid var(--table-border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .notice-body ul,
+        .notice-body ol {
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .notice-body li {
+            margin-bottom: 10px;
+        }
+
+        /* Simple grid/tables for patch notes */
+        .notice-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border-radius: 6px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--table-border);
+        }
+
+        .notice-body th,
+        .notice-body td {
+            border: 1px solid var(--table-border);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .notice-body th {
+            background-color: rgba(64, 196, 255, 0.1);
+            color: var(--primary-accent);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .notice-body b {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .notice-footer {
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--table-border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 40px;
+            background-color: transparent;
+            color: var(--text-muted);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid var(--text-muted);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            color: #111;
+            background-color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 15px rgba(64, 196, 255, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 0;
+            text-align: center;
+            background: #06090e;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Ambient particles */
+        .particle {
+            position: fixed;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.5;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(10vw);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating Particles -->
+    <div class="particle"
+        style="width: 3px; height: 3px; left: 15%; top: 80%; animation-duration: 15s; animation-delay: 2s;"></div>
+    <div class="particle"
+        style="width: 4px; height: 4px; left: 35%; top: 90%; animation-duration: 25s; animation-delay: 0s;"></div>
+    <div class="particle"
+        style="width: 2px; height: 2px; left: 55%; top: 85%; animation-duration: 12s; animation-delay: 4s;"></div>
+    <div class="particle"
+        style="width: 5px; height: 5px; left: 75%; top: 95%; animation-duration: 20s; animation-delay: 1s;"></div>
+    <div class="particle"
+        style="width: 3px; height: 3px; left: 85%; top: 70%; animation-duration: 18s; animation-delay: 3s;"></div>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html" class="nav-logo">REINCAR<span>NATION</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="news.html" class="nav-link active">News</a>
+            <a href="index.html#info" class="nav-link">Game Info</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="page-wrapper">
+        <div class="notice-container">
+            <!-- Header Section -->
+            <div class="notice-header">
+                <div class="meta-row">
+                    <span class="type-badge">Update</span>
+                    <span class="notice-date">2026-02-27</span>
+                </div>
+                <h1 class="notice-title">Reincarnation Update Log</h1>
+            </div>
+
+            <!-- Auto Generated Notice Content -->
+            <div class="notice-body">
+                <h2>⚔️ NEW HERO: LABIATA</h2>Premium Hero <span style="color: red;"><b>Labiata</b></span> has been added to the shop!<br><br><h2>🛍️ SHOP UPDATES</h2><h3>New Additions</h3><ul><li>Perfect <span style="color: red;"><b>Labiata</b></span> Package</li><li><span style="color: red;"><b>Labiata</b></span> Costume Package</li><li><span style="color: red;"><b>Labiata</b></span> M/F Customization: Hairstyle, Face, and Face with Glasses.</li></ul><br><h3>Price Adjustments</h3>Demon Slayer Nangin Package: <b>25,000</b> → <b>19,800</b> Astros<br><br><h3>GP Bonus Changes</h3><ul><li><b>Style Package</b>: +<b>100,000</b> GP</li><li><b>Permanent Hero Package</b>: +<b>450,000</b> GP</li><li><b>Premium Hero Package</b>: +<b>750,000</b> GP</li><li><b>Rare Hero Package</b>: +<b>1,000,000</b> GP</li></ul><br><h3>General Changes</h3><b>Rare Hero Package</b>: Contents updated to <b>Jumper</b>.<br><br><h2>🐾 PETS</h2><ul><li>Constellation Pet Egg: Added <b>Taurus</b> and <b>Pisces</b>.</li><li>New Arrival: Added <b>Pod 006</b>.</li></ul><br><h2>⚖️ BALANCE CHANGES: <span style="color: red;"><b>LABIATA</b></span></h2><h3>General</h3><ul><li>Gauge Damage: Damage increase while gauge is filled (<b>30%</b> -> <b>10%</b>)</li><li>Gauge increase modified</li></ul><br><h3>Hundred Flowers (SD)</h3><ul><li>Damage reduced (<b>20</b> -> <b>14</b>)</li></ul><br><h3>Hundred Flowers - EX (SD)</h3><ul><li>Damage reduced (<b>40</b> -> <b>20</b>)</li></ul><br><h3>Gale Force (ASD)</h3><ul><li>Minimum gauge required decreased (<b>100</b> -> <b>50</b>).</li><li>Now depletes <b>10</b> gauge when attacked.</li><li>Recovery tick frequency decreased (<b>0.3</b> -> <b>0.15</b>).</li><li>Damage multiplier decreased (<b>25%</b> -> <b>10%</b>).</li><li>DEF Buff has been removed.</li></ul><br><h3>Authority / Authority EX (AD)</h3><ul><li>Cooldown increased (<b>20s</b> -> <b>27s</b>)</li><li>Duration: Decreased from <b>20s</b> to <b>10s</b> (Allies: <b>7s</b>).</li><li>EX Multiplier: Damage decreased (<b>50%</b> -> <b>10%</b>).</li></ul><br><h3>Full Bloom (AS)</h3><ul><li>Recovery gauge decreased (<b>125</b> -> <b>100</b>).</li></ul>
+            </div>
+
+            <div class="notice-footer">
+                <a href="news.html" class="btn-back">List</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer" id="info">
+        <p>&copy; 2026 Reincarnation Hub. All system rights retained.</p>
+    </div>
+</body>
+
+</html>
