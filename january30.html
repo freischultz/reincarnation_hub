@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +24,6 @@
             --bg-color: #0b101a;
             --primary-accent: #40c4ff;
         }
-
         body {
             margin: 0;
             padding: 0;
@@ -43,7 +41,6 @@
             align-items: center;
             padding-top: 110px;
         }
-
         /* CONTROLS *//* CONTROLS */
         .controls {
             margin-bottom: 20px;
@@ -58,7 +55,6 @@
             gap: 15px;
             z-index: 1000;
         }
-
         .control-group {
             display: flex;
             align-items: center;
@@ -66,27 +62,22 @@
             border-right: 1px solid rgba(255, 255, 255, 0.2);
             padding-right: 15px;
         }
-
         .control-group:last-child {
             border-right: none;
         }
-
         .control-label {
             font-size: 0.8rem;
             color: #aaa;
             text-transform: uppercase;
         }
-
         input[type="file"] {
             color: #ccc;
             font-size: 0.85rem;
             max-width: 180px;
         }
-
         input[type="range"] {
             cursor: pointer;
         }
-
         .btn {
             border: none;
             color: white;
@@ -97,19 +88,15 @@
             transition: transform 0.2s;
             font-size: 0.85rem;
         }
-
         .btn-export {
             background: linear-gradient(45deg, #007bff, #00d2ff);
         }
-
         .btn-png {
             background: linear-gradient(45deg, #ff9d00, #ff5e00);
         }
-
         .btn:hover {
             transform: scale(1.05);
         }
-
         /* GRID (3 Columns) */
         .container {
             width: 95%;
@@ -119,7 +106,6 @@
             gap: 20px;
             padding-bottom: 50px;
         }
-
         .panel {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--glass-blur));
@@ -133,7 +119,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: backdrop-filter 0.2s;
         }
-
         h2 {
             margin-top: 0;
             text-transform: uppercase;
@@ -148,12 +133,10 @@
             gap: 10px;
             color: #fff;
         }
-
         .icon-symbol {
             margin-right: 10px;
             font-size: 1.5rem;
         }
-
         .buff h2 {
             margin-top: 0;
             text-transform: uppercase;
@@ -168,7 +151,6 @@
             gap: 10px;
             color: #fff;
         }
-
         .nerf h2 {
             margin-top: 0;
             text-transform: uppercase;
@@ -183,7 +165,6 @@
             gap: 10px;
             color: #fff;
         }
-
         .balance h2 {
             margin-top: 0;
             text-transform: uppercase;
@@ -198,7 +179,6 @@
             gap: 10px;
             color: #fff;
         }
-
         .section-label {
             font-size: 0.8rem;
             font-weight: bold;
@@ -208,14 +188,12 @@
             border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
             padding-bottom: 5px;
         }
-
         .hero-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             gap: 25px;
             margin-bottom: 10px;
         }
-
         .hero-card {
             display: flex;
             flex-direction: column;
@@ -224,12 +202,10 @@
             transition: transform 0.2s;
             cursor: help;
         }
-
         .hero-card:hover {
             transform: scale(1.1);
             z-index: 50;
         }
-
         .hero-img-wrapper {
             width: 70px;
             height: 70px;
@@ -237,14 +213,12 @@
             justify-content: center;
             align-items: center;
         }
-
         .hero-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.5));
         }
-
         .hero-name {
             font-weight: 700;
             font-family: var(--font-heading);
@@ -256,7 +230,6 @@
             margin-top: 8px;
             line-height: 1.2;
         }
-
         /* MODAL STYLES */
         .modal {
             display: none;
@@ -273,12 +246,10 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-
         .modal.show {
             display: flex;
             opacity: 1;
         }
-
         .modal-content {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -297,11 +268,9 @@
             flex-direction: column;
             max-height: 80vh;
         }
-
         .modal.show .modal-content {
             transform: scale(1);
         }
-
         .close-btn {
             position: absolute;
             top: 15px;
@@ -313,11 +282,9 @@
             transition: color 0.2s;
             z-index: 10;
         }
-
         .close-btn:hover {
             color: white;
         }
-
         .modal-header {
             display: flex;
             align-items: center;
@@ -327,7 +294,6 @@
             padding-bottom: 15px;
             flex-shrink: 0;
         }
-
         .modal-header img {
             width: 80px;
             height: 80px;
@@ -337,12 +303,10 @@
             padding: 5px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .modal-title-group {
             display: flex;
             flex-direction: column;
         }
-
         .modal-header h2 {
             margin-top: 0;
             text-transform: uppercase;
@@ -357,13 +321,11 @@
             gap: 10px;
             color: #fff;
         }
-
         .modal-id {
             font-size: 0.9rem;
             color: #aaa;
             margin-top: 4px;
         }
-
         .modal-body {
             white-space: pre-wrap;
             line-height: 1.6;
@@ -372,327 +334,157 @@
             padding-right: 10px;
             flex-grow: 1;
         }
-
         /* Scrollbar */
         .modal-body::-webkit-scrollbar {
             width: 8px;
         }
-
         .modal-body::-webkit-scrollbar-track {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 4px;
         }
-
         .modal-body::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
         }
-
         .modal-body::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.4);
         }
-    
-        /* Navbar */
+        /* Navbar Styling */
         .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 70px;
-            background: rgba(11, 16, 26, 0.75);
-            backdrop-filter: blur(12px);
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: rgba(11, 16, 26, 0.75); backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 60px;
-            box-sizing: border-box;
-            z-index: 10000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 60px; box-sizing: border-box; z-index: 200;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
         }
-
-        .nav-logo {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
+        .nav-logo { 
+            font-family: 'Montserrat', sans-serif; font-size: 1.6rem; 
+            font-weight: 800; letter-spacing: 2px; color: #fff; 
+            text-decoration: none; display: flex; align-items: center; 
         }
-
-        .nav-logo span {
-            color: var(--primary-accent);
+        .nav-logo span { color: #40c4ff; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-link { 
+            color: #e0e5ed; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 1px; position: relative; 
+            padding: 25px 0; transition: color 0.3s ease;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-link {
-            color: #e0e5ed;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding: 25px 0;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: #fff;
-        }
-
+        .nav-link:hover, .nav-link.active { color: #fff; }
         .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background-color: var(--primary-accent);
-            transition: width 0.3s ease;
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 0; height: 3px;
+            background-color: #40c4ff; transition: width 0.3s ease;
         }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-content { 
+            display: none; position: absolute; background: rgba(11, 16, 26, 0.95); 
+            min-width: 160px; border-radius: 8px; top: 100%; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 0; z-index: 1000; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            opacity: 0; transition: opacity 0.3s ease;
         }
-
-    
-        /* Dropdown CSS */
-        .nav-dropdown {
-            position: relative;
-            display: flex;
-            align-items: center;
-            height: 100%;
+        .nav-dropdown:hover .dropdown-content { display: block; opacity: 1; }
+        .dropdown-content a { 
+            color: #e0e5ed; padding: 12px 20px; text-decoration: none; display: block; 
+            font-size: 0.9rem; text-align: center; font-weight: 600; text-transform: uppercase; 
+            letter-spacing: 1px; transition: all 0.2s ease;
         }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: rgba(11, 16, 26, 0.95);
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 10px 0;
-            z-index: 1000;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-dropdown:hover .dropdown-content {
-            display: block;
-            opacity: 1;
-        }
-
-        .dropdown-content a {
-            color: #e0e5ed;
-            padding: 12px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-            text-align: center;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
-        }
-
-        .dropdown-content a:hover {
-            color: #ffffff;
-            background: rgba(64, 196, 255, 0.1);
-        }
-
+        .dropdown-content a:hover { color: #ffffff; background: rgba(64, 196, 255, 0.1); }
     </style>
     <style>
         .controls {
             display: none !important;
         }
-    
-        /* Navbar */
+        /* Navbar Styling */
         .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 70px;
-            background: rgba(11, 16, 26, 0.75);
-            backdrop-filter: blur(12px);
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: rgba(11, 16, 26, 0.75); backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 60px;
-            box-sizing: border-box;
-            z-index: 10000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 60px; box-sizing: border-box; z-index: 200;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
         }
-
-        .nav-logo {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
+        .nav-logo { 
+            font-family: 'Montserrat', sans-serif; font-size: 1.6rem; 
+            font-weight: 800; letter-spacing: 2px; color: #fff; 
+            text-decoration: none; display: flex; align-items: center; 
         }
-
-        .nav-logo span {
-            color: var(--primary-accent);
+        .nav-logo span { color: #40c4ff; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-link { 
+            color: #e0e5ed; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 1px; position: relative; 
+            padding: 25px 0; transition: color 0.3s ease;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-link {
-            color: #e0e5ed;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding: 25px 0;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: #fff;
-        }
-
+        .nav-link:hover, .nav-link.active { color: #fff; }
         .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background-color: var(--primary-accent);
-            transition: width 0.3s ease;
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 0; height: 3px;
+            background-color: #40c4ff; transition: width 0.3s ease;
         }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-content { 
+            display: none; position: absolute; background: rgba(11, 16, 26, 0.95); 
+            min-width: 160px; border-radius: 8px; top: 100%; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 0; z-index: 1000; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            opacity: 0; transition: opacity 0.3s ease;
         }
-
-    
-        /* Dropdown CSS */
-        .nav-dropdown {
-            position: relative;
-            display: flex;
-            align-items: center;
-            height: 100%;
+        .nav-dropdown:hover .dropdown-content { display: block; opacity: 1; }
+        .dropdown-content a { 
+            color: #e0e5ed; padding: 12px 20px; text-decoration: none; display: block; 
+            font-size: 0.9rem; text-align: center; font-weight: 600; text-transform: uppercase; 
+            letter-spacing: 1px; transition: all 0.2s ease;
         }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: rgba(11, 16, 26, 0.95);
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 10px 0;
-            z-index: 1000;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-dropdown:hover .dropdown-content {
-            display: block;
-            opacity: 1;
-        }
-
-        .dropdown-content a {
-            color: #e0e5ed;
-            padding: 12px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-            text-align: center;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
-        }
-
-        .dropdown-content a:hover {
-            color: #ffffff;
-            background: rgba(64, 196, 255, 0.1);
-        }
-
+        .dropdown-content a:hover { color: #ffffff; background: rgba(64, 196, 255, 0.1); }
     </style>
 </head>
-
 <body>
-    <!-- Navigation Bar -->
     <div class="navbar">
         <a href="index.html" class="nav-logo">REINCAR<span>NATION</span></a>
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
-            <a href="news.html" class="nav-link">News</a>
-                        <div class="nav-dropdown">
+            <a href="news.html" class="nav-link active">News</a>
+            <div class="nav-dropdown">
                 <a href="index.html#info" class="nav-link dropbtn">Game Info</a>
                 <div class="dropdown-content">
                     <a href="medals.html">Medals</a>
                     <a href="gashapon.html">Gashapon</a>
                     <a href="pets.html">Pets</a>
+                    <a href="exchange.html">Exchange</a>
                 </div>
             </div>
         </div>
     </div>
-
+    <!-- Navigation Bar -->
     <div class="controls" id="control-panel">
         <div class="control-group">
             <span class="control-label">Load Data:</span>
             <input type="file" id="jsonInput" accept=".json">
         </div>
-
         <div class="control-group">
             <span class="control-label">Background:</span>
             <input type="file" id="bgInput" accept="image/*">
         </div>
-
         <div class="control-group">
             <span class="control-label">Glass Blur:</span>
             <input type="range" id="blurInput" min="0" max="40" value="16">
         </div>
-
         <div class="control-group">
             <button class="btn btn-export" onclick="exportStandalone()">Save HTML</button>
             <button class="btn btn-png" onclick="saveAsPng()">Save PNG</button>
         </div>
     </div>
-
     <div class="container">
         <div class="panel buff"></div>
         <div class="panel nerf"></div>
         <div class="panel balance"></div>
     </div>
-
     <!-- MODAL -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
@@ -708,7 +500,6 @@
             </div>
         </div>
     </div>
-
     <script>
         let currentData = {
             "buff": [
@@ -918,9 +709,7 @@
                 }
             ]
         };
-
         function padId(id) { return id.toString().padStart(3, '0'); }
-
         function getImageUrl(item) {
             if (item.custom_icon) {
                 return item.custom_icon;
@@ -930,7 +719,6 @@
             const middle = (folder === "item") ? `item_${prefix}` : prefix;
             return `https://lostsagakr-cdn-image.valofe.com/2014_grand/${folder}/thum/thum_${middle}_${padId(item.id)}_o.jpg`;
         }
-
         function createHeroCard(item, categoryId) {
             const card = document.createElement('div');
             card.className = 'hero-card';
@@ -942,7 +730,6 @@
             `;
             // Removed tooltip generation
             card.innerHTML = html;
-
             // Add click event for modal
             if (item.message && item.message.trim() !== "") {
                 card.onclick = () => openModal(item, categoryId);
@@ -950,68 +737,53 @@
             } else {
                 card.style.cursor = 'default';
             }
-
             return card;
         }
-
         // --- MODAL LOGIC ---
         const modal = document.getElementById("infoModal");
         const closeBtn = document.querySelector(".close-btn");
         const modalTitle = document.getElementById("modal-title");
         const modalImg = document.getElementById("modal-img");
         const modalText = document.getElementById("modal-text");
-
         function openModal(item, categoryId) {
             modalTitle.innerText = item.name;
             modalText.innerText = item.message;
             modalImg.src = getImageUrl(item);
-
             // Colorize title based on category
             if (categoryId === 'buff') modalTitle.style.color = "var(--buff-color)";
             else if (categoryId === 'nerf') modalTitle.style.color = "var(--nerf-color)";
             else if (categoryId === 'balance') modalTitle.style.color = "var(--balance-color)";
             else modalTitle.style.color = "#fff";
-
             modal.classList.add("show");
         }
-
         function closeModal() {
             modal.classList.remove("show");
         }
-
         closeBtn.onclick = closeModal;
-
         window.onclick = function (event) {
             if (event.target == modal) {
                 closeModal();
             }
         }
-
         // ESC key to close
         document.addEventListener('keydown', function (event) {
             if (event.key === "Escape") {
                 closeModal();
             }
         });
-
         function renderAll(data) {
             currentData = data;
-
             const categories = [
                 { id: "buff", icon: "▲", title: "Buff" },
                 { id: "nerf", icon: "▼", title: "Nerf" },
                 { id: "balance", icon: "⚔", title: "Balance" }
             ];
-
             categories.forEach(cat => {
                 const panel = document.querySelector(`.panel.${cat.id}`);
                 panel.innerHTML = `<h2><span class="icon-symbol">${cat.icon}</span> ${cat.title}</h2>`;
-
                 if (!data[cat.id] || data[cat.id].length === 0) return;
-
                 // Sort by ID
                 const sortedItems = [...data[cat.id]].sort((a, b) => parseInt(a.id) - parseInt(b.id));
-
                 // Group items
                 const groups = {
                     "Heroes": [],
@@ -1020,7 +792,6 @@
                     "Helmets": [],
                     "Trinkets": []
                 };
-
                 sortedItems.forEach(item => {
                     const prefix = item.type_prefix || "char";
                     if (prefix === "char") groups["Heroes"].push(item);
@@ -1030,7 +801,6 @@
                     else if (prefix === "clo") groups["Trinkets"].push(item);
                     else groups["Heroes"].push(item); // Fallback
                 });
-
                 // Render Groups
                 Object.keys(groups).forEach(groupName => {
                     const items = groups[groupName];
@@ -1040,21 +810,17 @@
                         label.className = 'section-label';
                         label.innerText = groupName;
                         panel.appendChild(label);
-
                         // Grid
                         const grid = document.createElement('div');
                         grid.className = 'hero-grid';
-
                         items.forEach(item => {
                             grid.appendChild(createHeroCard(item, cat.id));
                         });
-
                         panel.appendChild(grid);
                     }
                 });
             });
         }
-
         function exportStandalone() {
             let html = document.documentElement.outerHTML;
             const script = `let currentData = ${JSON.stringify(currentData, null, 4)};`;
@@ -1065,7 +831,6 @@
             a.download = "balance_patch.html";
             a.click();
         }
-
         function saveAsPng() {
             const c = document.getElementById('control-panel');
             c.style.display = 'none';
@@ -1077,9 +842,7 @@
                 c.style.display = 'flex';
             });
         }
-
         // --- Event Listeners ---
-
         // 1. JSON Load
         document.getElementById('jsonInput').addEventListener('change', e => {
             const f = e.target.files[0];
@@ -1089,7 +852,6 @@
                 r.readAsText(f);
             }
         });
-
         // 2. Background Upload
         document.getElementById('bgInput').addEventListener('change', e => {
             const f = e.target.files[0];
@@ -1098,14 +860,11 @@
                 document.body.style.backgroundImage = `url('${url}')`;
             }
         });
-
         // 3. Blur Slider
         document.getElementById('blurInput').addEventListener('input', e => {
             document.documentElement.style.setProperty('--glass-blur', e.target.value + 'px');
         });
-
         renderAll(currentData);
     </script>
 </body>
-
 </html>

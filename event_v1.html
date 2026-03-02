@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +22,6 @@
             --table-border: rgba(255, 255, 255, 0.05);
             --content-bg: rgba(25, 30, 40, 0.6);
         }
-
         body {
             margin: 0;
             padding: 0;
@@ -41,79 +39,6 @@
             flex-direction: column;
             align-items: center;
         }
-
-        /* Navbar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 70px;
-            background: var(--nav-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 60px;
-            box-sizing: border-box;
-            z-index: 100;
-            border-bottom: 1px solid var(--table-border);
-        }
-
-        .nav-logo {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-logo span {
-            color: var(--primary-accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-link {
-            color: #e0e5ed;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding: 25px 0;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: #fff;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background-color: var(--primary-accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
         /* Page Content */
         .page-wrapper {
             padding-top: 130px;
@@ -124,7 +49,6 @@
             width: 100%;
             max-width: 1100px;
         }
-
         .notice-container {
             width: 90%;
             background: rgba(15, 20, 30, 0.7);
@@ -135,20 +59,17 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             margin-bottom: 50px;
         }
-
         .notice-header {
             padding: 30px 40px;
             border-bottom: 2px solid var(--table-border);
             background: rgba(0, 0, 0, 0.2);
         }
-
         .meta-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
-
         .type-badge {
             background-color: rgba(64, 196, 255, 0.15);
             color: var(--primary-accent);
@@ -161,25 +82,21 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
         }
-
         .type-badge.event {
             background-color: rgba(255, 99, 132, 0.15);
             color: #ff6384;
             border-color: rgba(255, 99, 132, 0.3);
         }
-
         .type-badge.notice {
             background-color: rgba(255, 206, 86, 0.15);
             color: #ffce56;
             border-color: rgba(255, 206, 86, 0.3);
         }
-
         .notice-date {
             color: var(--text-muted);
             font-size: 0.95rem;
             font-weight: 400;
         }
-
         .notice-title {
             font-family: var(--font-heading);
             font-size: 2.2rem;
@@ -190,7 +107,6 @@
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             letter-spacing: 0.5px;
         }
-
         /* The Custom Written Content */
         .notice-body {
             padding: 40px;
@@ -200,7 +116,6 @@
             background: var(--content-bg);
             min-height: 400px;
         }
-
         .notice-body h2 {
             font-family: var(--font-heading);
             font-size: 1.5rem;
@@ -211,11 +126,9 @@
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .notice-body h2:first-child {
             margin-top: 0;
         }
-
         .notice-body h3 {
             font-family: var(--font-heading);
             font-size: 1.25rem;
@@ -223,11 +136,9 @@
             margin-top: 30px;
             margin-bottom: 15px;
         }
-
         .notice-body p {
             margin-bottom: 20px;
         }
-
         .notice-body img {
             max-width: 100%;
             border-radius: 8px;
@@ -235,17 +146,14 @@
             border: 1px solid var(--table-border);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
-
         .notice-body ul,
         .notice-body ol {
             padding-left: 20px;
             margin-bottom: 25px;
         }
-
         .notice-body li {
             margin-bottom: 10px;
         }
-
         /* Simple grid/tables for patch notes */
         .notice-body table {
             width: 100%;
@@ -256,14 +164,12 @@
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid var(--table-border);
         }
-
         .notice-body th,
         .notice-body td {
             border: 1px solid var(--table-border);
             padding: 12px 15px;
             text-align: left;
         }
-
         .notice-body th {
             background-color: rgba(64, 196, 255, 0.1);
             color: var(--primary-accent);
@@ -271,19 +177,16 @@
             font-weight: 600;
             text-transform: uppercase;
         }
-
         .notice-body b {
             color: #fff;
             font-weight: 600;
         }
-
         .notice-footer {
             padding: 30px;
             text-align: center;
             border-top: 1px solid var(--table-border);
             background: rgba(0, 0, 0, 0.2);
         }
-
         .btn-back {
             display: inline-flex;
             align-items: center;
@@ -300,14 +203,12 @@
             border-radius: 4px;
             transition: all 0.3s ease;
         }
-
         .btn-back:hover {
             color: #111;
             background-color: var(--primary-accent);
             border-color: var(--primary-accent);
             box-shadow: 0 0 15px rgba(64, 196, 255, 0.4);
         }
-
         /* Footer */
         .footer {
             border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -317,13 +218,11 @@
             width: 100%;
             margin-top: auto;
         }
-
         .footer p {
             color: var(--text-muted);
             font-size: 0.9rem;
             margin: 0;
         }
-
         /* Ambient particles */
         .particle {
             position: fixed;
@@ -333,81 +232,85 @@
             animation: float 20s infinite linear;
             z-index: -1;
         }
-
         @keyframes float {
             0% {
                 transform: translateY(0) translateX(0);
                 opacity: 0;
             }
-
             10% {
                 opacity: 0.5;
             }
-
             90% {
                 opacity: 0.3;
             }
-
             100% {
                 transform: translateY(-100vh) translateX(10vw);
                 opacity: 0;
             }
         }
-    
-        /* Dropdown CSS */
-        .nav-dropdown {
-            position: relative;
-            display: flex;
-            align-items: center;
-            height: 100%;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: rgba(11, 16, 26, 0.95);
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 10px 0;
-            z-index: 1000;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            backdrop-filter: blur(12px);
+        /* Navbar Styling */
+        .navbar {
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: rgba(11, 16, 26, 0.75); backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 60px; box-sizing: border-box; z-index: 200;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
         }
-
-        .nav-dropdown:hover .dropdown-content {
-            display: block;
-            opacity: 1;
+        .nav-logo { 
+            font-family: 'Montserrat', sans-serif; font-size: 1.6rem; 
+            font-weight: 800; letter-spacing: 2px; color: #fff; 
+            text-decoration: none; display: flex; align-items: center; 
         }
-
-        .dropdown-content a {
-            color: #e0e5ed;
-            padding: 12px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-            text-align: center;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
+        .nav-logo span { color: #40c4ff; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-link { 
+            color: #e0e5ed; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 1px; position: relative; 
+            padding: 25px 0; transition: color 0.3s ease;
         }
-
-        .dropdown-content a:hover {
-            color: #ffffff;
-            background: rgba(64, 196, 255, 0.1);
+        .nav-link:hover, .nav-link.active { color: #fff; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 0; height: 3px;
+            background-color: #40c4ff; transition: width 0.3s ease;
         }
-
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-content { 
+            display: none; position: absolute; background: rgba(11, 16, 26, 0.95); 
+            min-width: 160px; border-radius: 8px; top: 100%; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 0; z-index: 1000; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .nav-dropdown:hover .dropdown-content { display: block; opacity: 1; }
+        .dropdown-content a { 
+            color: #e0e5ed; padding: 12px 20px; text-decoration: none; display: block; 
+            font-size: 0.9rem; text-align: center; font-weight: 600; text-transform: uppercase; 
+            letter-spacing: 1px; transition: all 0.2s ease;
+        }
+        .dropdown-content a:hover { color: #ffffff; background: rgba(64, 196, 255, 0.1); }
     </style>
 </head>
-
 <body>
+    <div class="navbar">
+        <a href="index.html" class="nav-logo">REINCAR<span>NATION</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="news.html" class="nav-link active">News</a>
+            <div class="nav-dropdown">
+                <a href="index.html#info" class="nav-link dropbtn">Game Info</a>
+                <div class="dropdown-content">
+                    <a href="medals.html">Medals</a>
+                    <a href="gashapon.html">Gashapon</a>
+                    <a href="pets.html">Pets</a>
+                    <a href="exchange.html">Exchange</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Floating Particles -->
     <div class="particle"
         style="width: 3px; height: 3px; left: 15%; top: 80%; animation-duration: 15s; animation-delay: 2s;"></div>
@@ -419,24 +322,7 @@
         style="width: 5px; height: 5px; left: 75%; top: 95%; animation-duration: 20s; animation-delay: 1s;"></div>
     <div class="particle"
         style="width: 3px; height: 3px; left: 85%; top: 70%; animation-duration: 18s; animation-delay: 3s;"></div>
-
     <!-- Navigation Bar -->
-    <div class="navbar">
-        <a href="index.html" class="nav-logo">REINCAR<span>NATION</span></a>
-        <div class="nav-links">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="news.html" class="nav-link active">News</a>
-                        <div class="nav-dropdown">
-                <a href="index.html#info" class="nav-link dropbtn">Game Info</a>
-                <div class="dropdown-content">
-                    <a href="medals.html">Medals</a>
-                    <a href="gashapon.html">Gashapon</a>
-                    <a href="pets.html">Pets</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="page-wrapper">
         <div class="notice-container">
@@ -448,22 +334,18 @@
                 </div>
                 <h1 class="notice-title">Event | Treasure Capsules</h1>
             </div>
-
             <!-- Auto Generated Notice Content -->
             <div class="notice-body">
                 <h2><span style="color: #FFD700;"><b>💎 TREASURE CAPSULES ARE BACK! 💎</b></span></h2>Enjoy the nostalgic <b>Gashapon</b> item from OGP days! You can earn these capsules by logging in every day, exchanging via <b>Vernal Coins</b>, OR with <b>Astros</b>!<br><br><h3><span style="color: #FFD700;"><b>🎰 Test your Luck!</b></span></h3><ul><li> <b>🎫 1x Capsule</b> : 500 Astros</li><li> <b>🎫 5x Capsule</b> : 2,400 Astros</li><li> <b>🎫 10x Capsules</b>: 4,600 Astros</li><li> <b>🎫 25x Capsules</b>: 11,000 Astros</li></ul><br><h3><span style="color: #FFD700;"><b>📦 March Treasure Capsule Contents</b></span></h3><br><span style="color: #FFD700;"><b>✨ EXTREMELY RARE</b></span><br><ul><li> <b>Perfect Labiata Package</b></li><li> Rare Hero Package x1</li><li> Custom Weapon Coupon x1</li></ul><br><span style="color: #800080;"><b>🟣 VERY RARE</b></span><br><ul><li> <b>Perfect Engineer Package</b></li><li> <b>Perfect Geomje Package</b></li><li> <b>Perfect Zeus Package</b></li><li> <b>Perfect F-Saber Package</b></li><li> <b>Perfect Out Boxer Package</b></li><li> <b>Perfect Death Angel Package</b></li><li> <b>Perfect Hades Package</b></li><li> Hero Package Coupon x1</li><li> Custom Costume Coupon x1</li><li> Costume Package Coupon x1</li><li> Dimensional Shard x5000</li><li> 250,000 GP</li></ul><br><span style="color: #0000FF;"><b>🔵 RARE</b></span><br><ul><li> <b>Labiata Costume Package</b></li><li> <b>Engineer Costume Package</b></li><li> <b>Zeus Costume Package</b></li><li> <b>F-Saber Costume Package</b></li><li> <b>Out Boxer Costume Package</b></li><li> <b>Death Angel Costume Package</b></li><li> <b>Hades Costume Package</b></li><li> <b>Labiata <Permanent></b></li><li> <b>Engineer <Permanent></b></li><li> <b>Geomje <Permanent></b></li><li> <b>Zeus <Permanent></b></li><li> <b>F-Saber <Permanent></b></li><li> <b>Out Boxer <Permanent></b></li><li> <b>Death Angel <Permanent></b></li><li> <b>Hades <Permanent></b></li><li> Permanent Hero Package x1</li><li> Rare Gear Coupon x3</li><li> S0 Hero Selection Coupon x1</li><li> Dimensional Shard x1000</li><li> 100,000 GP</li></ul><br><span style="color: #008000;"><b>🟢 UNCOMMON</b></span><br><ul><li> Style Package x1</li><li> Rare Gear Coupon x1</li><li> Rare Hero EXP Coupon x1</li><li> Normal Gear Coupon x1 </li><li> Normal Hero EXP Coupon x1</li><li> Medal Slot Package x1</li><li> Dev K's Half Medal Box</li><li> Dimensional Shard x500</li><li> Monster Coin x5</li><li> Raid Ticket x1</li><li> Raid Coin x50</li><li> 75,000 GP</li></ul><br><span style="color: #FFFFFF;"><b>⚪ COMMON</b></span><br><ul><li> Raid Coin x25</li><li> Raid Coin x10</li><li> Monster Coin x3</li><li> Monster Coin x1</li><li> Lunar Fishing Pole <1 Day></li><li> Lunar Fishing Bait x20</li><li> Dev K's Beginner Medal Box</li><li> Dimensional Shard x250</li><li> EXP +100% <1 Day></li><li> GP +100% <1 Day></li><li> 50,000 GP</li><li> 20,000 GP</li></ul><br><span style="color: #FFD700;">⚠️ <b>Note:</b> <i>Rates will be listed before the update, as we are still in the testing phase!</i></span>
             </div>
-
             <div class="notice-footer">
                 <a href="news.html" class="btn-back">List</a>
             </div>
         </div>
     </div>
-
     <!-- Footer -->
     <div class="footer" id="info">
         <p>&copy; 2026 Reincarnation Hub. All system rights retained.</p>
     </div>
 </body>
-
 </html>
