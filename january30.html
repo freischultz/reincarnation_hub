@@ -464,6 +464,57 @@
             width: 100%;
         }
 
+    
+        /* Dropdown CSS */
+        .nav-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(11, 16, 26, 0.95);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 10px 0;
+            z-index: 1000;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: #e0e5ed;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-content a:hover {
+            color: #ffffff;
+            background: rgba(64, 196, 255, 0.1);
+        }
+
     </style>
     <style>
         .controls {
@@ -542,6 +593,57 @@
             width: 100%;
         }
 
+    
+        /* Dropdown CSS */
+        .nav-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(11, 16, 26, 0.95);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 10px 0;
+            z-index: 1000;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: #e0e5ed;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-content a:hover {
+            color: #ffffff;
+            background: rgba(64, 196, 255, 0.1);
+        }
+
     </style>
 </head>
 
@@ -552,7 +654,14 @@
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
             <a href="news.html" class="nav-link">News</a>
-            <a href="index.html#info" class="nav-link">Game Info</a>
+                        <div class="nav-dropdown">
+                <a href="index.html#info" class="nav-link dropbtn">Game Info</a>
+                <div class="dropdown-content">
+                    <a href="medals.html">Medals</a>
+                    <a href="gashapon.html">Gashapon</a>
+                    <a href="pets.html">Pets</a>
+                </div>
+            </div>
         </div>
     </div>
 
