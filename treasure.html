@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Drops | Reincarnation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b101a;
+            --primary-accent: #40c4ff;
+            --accent-glow: rgba(64, 196, 255, 0.4);
+            --glass-blur: 16px;
+            --glass-bg: rgba(16, 24, 45, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --font-main: 'Montserrat', 'Noto Sans', sans-serif;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at 30% 30%, rgba(64, 196, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at center, #1b263b 0%, #0b101a 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-color);
+            font-family: var(--font-main);
+            display: flex; flex-direction: column; align-items: center;
+            padding-top: 110px;
+        }
+
+        .navbar {
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: rgba(11, 16, 26, 0.75); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 60px; box-sizing: border-box; z-index: 2000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo { 
+            font-family: 'Montserrat', sans-serif; font-size: 1.6rem; 
+            font-weight: 800; letter-spacing: 2px; color: #fff; 
+            text-decoration: none; display: flex; align-items: center; 
+        }
+        .nav-logo span { color: #40c4ff; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-link { 
+            color: #e0e5ed; text-decoration: none; font-size: 0.95rem; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 1px; position: relative; 
+            padding: 25px 0; transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active { color: #fff; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 0; height: 3px;
+            background-color: #40c4ff; transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-content { 
+            display: none; position: absolute; background: rgba(11, 16, 26, 0.95); 
+            min-width: 160px; border-radius: 8px; top: 100%; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 0; z-index: 1000; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .nav-dropdown:hover .dropdown-content { display: block; opacity: 1; }
+        .dropdown-content a { 
+            color: #e0e5ed; padding: 12px 20px; text-decoration: none; display: block; 
+            font-size: 0.9rem; text-align: center; font-weight: 600; text-transform: uppercase; 
+            letter-spacing: 1px; transition: all 0.2s ease;
+        }
+        .dropdown-content a:hover { color: #ffffff; background: rgba(64, 196, 255, 0.1); }
+
+        h1 {
+            color: #fff; margin-top: 0;
+            text-transform: uppercase; font-size: 2.5rem; letter-spacing: 2px;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;
+            width: 95%; max-width: 1400px; text-align: center;
+            background: linear-gradient(to right, #ffffff, var(--primary-accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .tables-container {
+            width: 95%; max-width: 1400px;
+            display: flex; flex-direction: column; gap: 40px; padding-bottom: 50px;
+        }
+
+        .table-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: 16px; overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .table-card:hover {
+            border-color: rgba(64, 196, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(64, 196, 255, 0.1);
+        }
+        .table-header {
+            background: rgba(0,0,0,0.4); padding: 20px;
+            display: flex; align-items: center; gap: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .table-header img {
+            width: 60px; height: 60px; object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+            border-radius: 8px; background: rgba(255,255,255,0.05);
+            padding: 5px; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .table-header h2 {
+            margin: 0; font-family: 'Montserrat', sans-serif; font-size: 1.8rem;
+            color: #fff; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px; padding: 20px;
+        }
+        .item-card {
+            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px; padding: 14px;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; transition: all 0.2s ease;
+        }
+        .item-card:hover {
+            background: rgba(64, 196, 255, 0.05);
+            border-color: rgba(64, 196, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        .item-icon {
+            width: 56px; height: 56px; margin-bottom: 10px;
+            background: rgba(255,255,255,0.05); border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1); padding: 4px;
+            display: flex; justify-content: center; align-items: center;
+            flex-shrink: 0;
+        }
+        .item-icon img {
+            max-width: 100%; max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.5));
+        }
+        .item-name {
+            font-size: 0.9rem; font-weight: 600; color: #fff;
+            margin-bottom: 8px; line-height: 1.3; flex-grow: 1;
+        }
+        .item-rate {
+            background: rgba(64, 196, 255, 0.15); color: #40c4ff;
+            padding: 3px 10px; border-radius: 20px; font-size: 0.85rem;
+            font-weight: bold; border: 1px solid rgba(64, 196, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="nav-logo">REINCAR<span>NATION</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="news.html" class="nav-link">News</a>
+            <div class="nav-dropdown">
+                <a href="javascript:void(0)" class="nav-link active">Game Info</a>
+                <div class="dropdown-content">
+                    <a href="medals.html">Medals</a>
+                    <a href="gashapon.html">Gashapon</a>
+                    <a href="pets.html">Pets</a>
+                    <a href="exchange.html">Exchange</a>
+                    <a href="gear_repository.html">Gear Repo</a>
+                    <a href="evolution_info.html">Evolution Info</a>
+                    <a href="treasure.html">Treasure Info</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1>Treasure Drops</h1>
+    <div class="tables-container">
+
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack44_mode_monster001.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Deep Forest Easy</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack23_random_peso_4.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Random Money Pouch</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_hp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium HP Potion</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_sp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium SP Potion</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Skeleton Soldier</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_damage50.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Berserker's Token</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_protectioncloak.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Cloak of Protection</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack34_quest_1095.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Spirit</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Little Reaper</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_key_forest.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Treasure Key</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack37_quest_1159.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Treasure Chest</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll [1x]</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply [1x]</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack44_mode_monster001.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Deep Forest Master</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack23_random_peso_4.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Random Money Pouch</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_hp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium HP Potion</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_sp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium SP Potion</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Skeleton Soldier</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_damage50.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Berserker's Token</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_protectioncloak.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Cloak of Protection</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack34_quest_1095.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Spirit</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Little Reaper</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Gear</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_key_forest.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Treasure Key</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack37_quest_1159.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Treasure Chest</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll [1x]</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply [1x]</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack62_Rank_D_Pet_Egg.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">D Rank Pet Egg</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 2500</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 5000</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 10000</div>
+                    <div class="item-rate">4.48%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack62_Rank_C_Pet_Egg.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">C Rank Pet Egg</div>
+                    <div class="item-rate">2.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack37_quest_1160.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Golden Chest</div>
+                    <div class="item-rate">0.90%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckesoldierpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Package</div>
+                    <div class="item-rate">0.90%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckequipmentpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Package</div>
+                    <div class="item-rate">0.90%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_yellow__UIIconPack44_mode_monster001.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Master Medal (Rare)</div>
+                    <div class="item-rate">0.45%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Perm Gear</div>
+                    <div class="item-rate">0.22%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_key_forest_gold.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Golden Key</div>
+                    <div class="item-rate">0.22%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_pack1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Style Package</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack6_goods_namechange.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium Nickname</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_pet13_3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Boss Pet - Dryad (S Rank)</div>
+                    <div class="item-rate">0.00%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_purple__UIIconPack44_mode_monster001.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Forest Master Medal (Unique)</div>
+                    <div class="item-rate">0.00%</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack45_mode_monster002.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Snow Town Easy</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack23_random_peso_4.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Random Money Pouch</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_hp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium HP Potion</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_sp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium SP Potion</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Skeleton Soldier</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_damage50.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Berserker's Token</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_protectioncloak.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Cloak of Protection</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack101_Snow_Ball-Big.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Snow Spirit</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Little Reaper</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_key_snow.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Snow Treasure Key</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack37_quest_1161.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Snow Treasure</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll [1x]</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply [1x]</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack45_mode_monster002.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Snow Town Master</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack23_random_peso_4.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Random Money Pouch</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_hp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium HP Potion</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_sp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium SP Potion</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Skeleton Soldier</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_damage50.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Berserker's Token</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_protectioncloak.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Cloak of Protection</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack101_Snow_Ball-Big.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Snow Spirit</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Little Reaper</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_key_snow.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Snow Treasure Key</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack37_quest_1161.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Snow Treasure</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll [1x]</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply [1x]</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack62_Rank_D_Pet_Egg.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">D Rank Pet Egg</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 2500</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 5000</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 10000</div>
+                    <div class="item-rate">4.65%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack62_Rank_C_Pet_Egg.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">C Rank Pet Egg</div>
+                    <div class="item-rate">2.32%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Gear</div>
+                    <div class="item-rate">0.93%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack37_quest_1162.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Snow Golden Treasure</div>
+                    <div class="item-rate">0.93%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckesoldierpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Package</div>
+                    <div class="item-rate">0.93%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckequipmentpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Package</div>
+                    <div class="item-rate">0.93%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_yellow__UIIconPack45_mode_monster002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Ice Princess Medal (Rare)</div>
+                    <div class="item-rate">0.46%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Perm Gear</div>
+                    <div class="item-rate">0.23%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_key_snow_gold.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Snow Golden Key</div>
+                    <div class="item-rate">0.23%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_pack1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Style Package</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack6_goods_namechange.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium Nickname</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_pet14_3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Boss Pet - Princess (S Rank)</div>
+                    <div class="item-rate">0.00%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_purple__UIIconPack45_mode_monster002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Ice Princess Medal (Unique)</div>
+                    <div class="item-rate">0.00%</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack47_mode_monster003.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Fire Temple Easy</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack23_random_peso_4.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Random Money Pouch</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_hp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium HP Potion</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_sp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium SP Potion</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Skeleton Soldier</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_damage50.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Berserker's Token</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_protectioncloak.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Cloak of Protection</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack54_evnet_magicfire.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Fire Spirit</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Little Reaper</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack47_goods_pve2_key_fire.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Fire Treasure Key</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack47_goods_pve2_key_pandorafirebox.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Fire Treasure</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll [1x]</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply [1x]</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack47_mode_monster003.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Fire Temple Master</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack23_random_peso_4.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Random Money Pouch</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_hp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium HP Potion</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_sp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium SP Potion</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Skeleton Soldier</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_damage50.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Berserker's Token</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_protectioncloak.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Cloak of Protection</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack54_evnet_magicfire.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Fire Spirit</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Little Reaper</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack47_goods_pve2_key_fire.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Fire Treasure Key</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack47_goods_pve2_key_pandorafirebox.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Fire Treasure</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll [1x]</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply [1x]</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack62_Rank_D_Pet_Egg.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">D Rank Pet Egg</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 2500</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 5000</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 10000</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack62_Rank_C_Pet_Egg.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">C Rank Pet Egg</div>
+                    <div class="item-rate">2.35%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Gear</div>
+                    <div class="item-rate">0.94%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack47_goods_pve2_key_pandorafirebox_gold.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Fire Golden Treasure</div>
+                    <div class="item-rate">0.94%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_yellow__UIIconPack47_mode_monster003.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Ifrit Medal (Rare)</div>
+                    <div class="item-rate">0.47%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Perm Gear</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack47_goods_pve2_key_fire_gold.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Fire Golden Key</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckesoldierpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Package</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckequipmentpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Package</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_pack1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Style Package</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack6_goods_namechange.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium Nickname</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_pet12_3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Boss Pet - Ifrit (S Rank)</div>
+                    <div class="item-rate">0.00%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_purple__UIIconPack47_mode_monster003.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Ifrit Medal (Unique)</div>
+                    <div class="item-rate">0.00%</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack61_factory_secret_medal.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Secret Factory Easy</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack23_random_peso_4.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Random Money Pouch</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_hp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium HP Potion</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_sp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium SP Potion</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Skeleton Soldier</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_damage50.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Berserker's Token</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_protectioncloak.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Cloak of Protection</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack117_unique_synthesizer.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Part Piece</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Little Reaper</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack61_factory_silverkey.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Machine Treasure Key</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack61_factory_silverbox_lock.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Machine Key</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll [1x]</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply [1x]</div>
+                    <div class="item-rate">6.25%</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack61_factory_secret_medal.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Secret Factory Master</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack23_random_peso_4.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Random Money Pouch</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_hp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium HP Potion</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_sp100.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium SP Potion</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Skeleton Soldier</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_damage50.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Berserker's Token</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_protectioncloak.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Cloak of Protection</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack117_unique_synthesizer.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Part Piece</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_pve2_summon2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Summon: Little Reaper</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack61_factory_silverkey.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Machine Treasure Key</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack61_factory_silverbox_lock.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Machine Key</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll [1x]</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply [1x]</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack62_Rank_D_Pet_Egg.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">D Rank Pet Egg</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 2500</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 5000</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack13_quest_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Peso 10000</div>
+                    <div class="item-rate">4.70%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack62_Rank_C_Pet_Egg.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">C Rank Pet Egg</div>
+                    <div class="item-rate">2.35%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Gear</div>
+                    <div class="item-rate">0.94%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack61_factory_goldbox_lock.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Sealed Machine Golden Treasure</div>
+                    <div class="item-rate">0.94%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_yellow__UIIconPack61_factory_secret_medal.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">K's Secret Robot Medal (Rare)</div>
+                    <div class="item-rate">0.47%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Perm Gear</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack61_factory_goldkey.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Machine Golden Key</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckesoldierpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Package</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckequipmentpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Package</div>
+                    <div class="item-rate">0.24%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_pack1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Style Package</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack6_goods_namechange.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium Nickname</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_pet11_3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Boss Pet - Gigantic K (S Rank)</div>
+                    <div class="item-rate">0.00%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_purple__UIIconPack61_factory_secret_medal.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">K's Secret Robot Medal (Unique)</div>
+                    <div class="item-rate">0.00%</div>
+                </div>
+            </div>
+        </div>
+        <div class="table-card">
+            <div class="table-header">
+                <img src="images/UIIconPack68_White_medal.png" alt="icon" onerror="this.style.display='none'">
+                <h2>Raid</h2>
+            </div>
+            <div class="items-grid">
+
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack47_plaza_boss01_b.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Raid Medal (Normal)</div>
+                    <div class="item-rate">19.56%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_yellow__UIIconPack47_plaza_boss01_b.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Raid Medal (Rare)</div>
+                    <div class="item-rate">8.69%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack84_rare_time_select.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Hero Select</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_soldiersummon_rare.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Hero Scroll</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack83_Rare_Select_Coupon.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Gear Select</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack108_Madal_Rage.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rage Medal Synthesizer</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack98_Rare_Sel_Random.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Select Ticket Draw</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll 2</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_New_additives_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Dimensional Piece x500</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack83_Rare_Select_Coupon.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Armor Rare Gear Select</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack83_Rare_Select_Coupon.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Helmet Rare Gear Select</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack83_Rare_Select_Coupon.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Trinket Rare Gear Select</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_soldiersummon_unlimited.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Hero Scroll</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_New_additives_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Dimensional Piece x300</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack79_rand_medal_box.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium Medal Box</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_New_additives_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Dimensional Piece x200</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare3.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Perm Gear</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack41_goods_newyear2012_medal_k.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">K's Precious Medal Box</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack90_medal_merge_2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium Medal Synthesizer</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Gear Supply</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Basic Gear Supply</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack92_Treasure_Box2.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">K's Basic Medal Box</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack90_medal_merge.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Perm Medal Synthesizer</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_New_additives_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Dimensional Piece x50</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_rare1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Rare Beginner Gear</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_extra1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Basic Gear Supply</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1066.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Hope Gear Supply</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/PetIconPack001_New_additives_002.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Dimensional Piece x25</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack32_quest_1067.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Scroll</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack31_quest_1050.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Supply</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack11_goods_extra0.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Beginner Gear Supply</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack6_goods_namechange.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Premium Nickname</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack10_goods_pack1.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Style Package</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckequipmentpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Gear Package</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/UIIconPack45_goods_luckesoldierpack.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Lucky Hero Package</div>
+                    <div class="item-rate">2.17%</div>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon"><img src="images/BaseImage034_iconslot_unique_purple__UIIconPack47_plaza_boss01_b.png" alt="" onerror="this.style.display='none'"></div>
+                    <div class="item-name">Raid Medal (Unique)</div>
+                    <div class="item-rate">0.02%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
